@@ -1,0 +1,37 @@
+<div class="flex flex-col md:flex-row h-screen">
+  <!-- Login -->
+  <div class="md:w-1/2 flex items-center justify-center bg-white p-8">
+    <mat-card class="w-full max-w-md p-6 shadow-lg">
+      <mat-card-header>
+        <mat-card-title class="text-2xl font-bold text-gray-800">
+          MinePet
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="login()">
+          <mat-form-field appearance="fill" class="w-full mb-4">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" />
+            <mat-error *ngIf="form.get('email')?.invalid">Invalid email</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full mb-4">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" />
+            <mat-error *ngIf="form.get('password')?.invalid">Password required</mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" class="w-full" [disabled]="form.invalid">
+            Login
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="md:w-1/2 bg-gradient-to-br from-pastel-pink to-pastel-blue flex items-center justify-center bg-pastelWhite">
+      <img src="minePet.png" alt="Veterinary" class="max-w-full max-h-full object-contain" />
+  </div>
+
+  
+</div>
