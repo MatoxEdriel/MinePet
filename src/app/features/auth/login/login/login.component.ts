@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
 
   form!: FormGroup;
 
+  hidePassword: boolean = true;
+
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
 
