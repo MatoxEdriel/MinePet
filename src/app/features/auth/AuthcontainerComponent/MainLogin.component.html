@@ -1,0 +1,21 @@
+<div class="flex flex-col md:flex-row h-screen">
+  <div class="md:w-1/2 flex items-center justify-center bg-pastelWhite p-8">
+    <mat-card class="relative w-full max-w-md p-6 shadow-lg rounded-[55px] bg-white overflow-visible border-4 border-darkMauve">
+      <img src="pictu.png" alt="MinePet" class="absolute -top-36 left-1/2 transform -translate-x-1/2 w-40 h-auto z-10 pointer-events-none animate-gato-mover" />
+      <mat-card-header class="justify-center mb-8 mt-12">
+        <div class="font-sans text-5xl font-extrabold text-darkMauve">
+          <h1>{{ showRegister ? 'Crear Cuenta' : 'Iniciar Sesión' }}</h1>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <app-login *ngIf="!showRegister" (switchForm)="showRegister = true"></app-login>
+        <app-register *ngIf="showRegister" (switchForm)="showRegister = false"></app-register>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div
+    class="md:w-1/2 bg-gradient-to-br from-pastel-pink to-pastel-blue flex items-center justify-center bg-pastelWhite">
+    <img src="minePet.png" alt="Veterinary" class="max-w-full max-h-full object-contain" />
+  </div>
+</div>

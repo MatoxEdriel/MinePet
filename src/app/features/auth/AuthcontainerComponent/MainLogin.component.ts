@@ -1,5 +1,5 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -8,31 +8,35 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LoginComponent } from "../login/login/login.component";
+import { RegisterComponent } from "../register/register/register.component";
+
+
 
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-MainLogin',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    LoginComponent,
+    RegisterComponent
   ],
-  styleUrls: ['./login.component.css']
+  templateUrl: './MainLogin.component.html',
+  styleUrls: ['./MainLogin.component.css']
 })
-export class LoginComponent implements OnInit {
-
-  @Output() switchForm = new EventEmitter<void>();
+export class MainLoginComponent implements OnInit {
 
   form!: FormGroup;
+  showRegister: boolean = false;
 
   hidePassword: boolean = true;
 
@@ -47,21 +51,19 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    if(this.form.valid){
+    if (this.form.valid) {
       console.log(this.form.value)
 
     }
-    else{
+    else {
       this.form.markAllAsTouched();
     }
 
   }
-//aviso a padre
-  switchToRegister(){
-    this.switchForm.emit();
-  }
+
 
   ngOnInit() {
   }
+
 
 }

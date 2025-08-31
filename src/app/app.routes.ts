@@ -7,12 +7,17 @@ import { HistoryComponent } from './pages/layout/Dashboard/pages/History/History
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
 
-  {
+  // {
+  //   path: 'auth/login',
+  //   loadComponent: () =>
+  //     import('./features/auth/login/login/login.component').then((m) => m.LoginComponent),
+  // },
+
+    {
     path: 'auth/login',
     loadComponent: () =>
-      import('./features/auth/login/login/login.component').then((m) => m.LoginComponent),
+      import('./features/auth/AuthcontainerComponent/MainLogin.component').then((m) => m.MainLoginComponent),
   },
-
 
   {
     path: 'auth/register',

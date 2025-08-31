@@ -3,9 +3,62 @@
     <h1 class="text-xl font-bold">Receta</h1>
     <button
       class="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+      (click)="openModal()"
     >
       <mat-icon>add</mat-icon>
       Nueva Receta
     </button>
   </div>
 </div>
+
+
+<div
+  *ngIf="showModal"
+  class="fixed inset-0 flex items-center justify-center backdrop-blur-sm  bg-opacity-50 z-50"
+>
+  <div class="bg-white w-96 p-6 rounded-lg shadow-lg relative">
+    <h2 class="text-lg font-bold mb-4">Registrar Nueva Receta</h2>
+
+    <div class="flex flex-col gap-3">
+      <input
+        type="text"
+        placeholder="Nombre de la receta"
+        class="border p-2 rounded"
+        [(ngModel)]="newPrescription.nombre"
+        
+      />
+      <textarea
+        rows="3"
+        placeholder="Descripción"
+        class="border p-2 rounded"
+        
+      ></textarea>
+      <input
+        type="date"
+        class="border p-2 rounded"
+        
+      />
+    </div>
+
+    <div class="flex justify-end gap-2 mt-4">
+      <button
+        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+        (click)="showModal = false"
+       
+      >
+        Cancelar
+      </button>
+      <button
+        class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+    
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
