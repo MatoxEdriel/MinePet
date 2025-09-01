@@ -1,12 +1,9 @@
-<div class="bg-white w-full max-w-xl p-8 rounded-[55px] shadow-lg ">
-  
-  <form [formGroup]="registerForm" (ngSubmit)="register()" class="flex flex-col gap-4">
-
+<div class="bg-white w-[650px] rounded-[55px] shadow-lg">
+  <form [formGroup]="registerForm" (ngSubmit)="register()" class="flex flex-col gap-3 w-full">
     <div class="flex gap-4">
       <mat-form-field appearance="fill" class="flex-1">
         <mat-icon matPrefix class="text-pastel-pink">person</mat-icon>
         <mat-label>Nombre</mat-label>
-
 
         <input matInput formControlName="name" placeholder="Nombre" />
       </mat-form-field>
@@ -27,7 +24,12 @@
     <div class="flex gap-4">
       <mat-form-field appearance="fill" class="flex-1">
         <mat-icon matPrefix class="text-pastel-pink">lock</mat-icon>
-        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Contraseña" />
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          placeholder="Contraseña"
+        />
         <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
           <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
@@ -35,8 +37,18 @@
 
       <mat-form-field appearance="fill" class="flex-1">
         <mat-icon matPrefix class="text-pastel-pink">lock</mat-icon>
-        <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" placeholder="Confirmar Contraseña" />
-        <button mat-icon-button matSuffix type="button" (click)="hideConfirmPassword = !hideConfirmPassword">
+        <input
+          matInput
+          [type]="hideConfirmPassword ? 'password' : 'text'"
+          formControlName="confirmPassword"
+          placeholder="Confirmar Contraseña"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hideConfirmPassword = !hideConfirmPassword"
+        >
           <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
       </mat-form-field>
@@ -51,12 +63,14 @@
     <button mat-raised-button color="primary" class="w-full" [disabled]="registerForm.invalid">
       Crear Cuenta
     </button>
-
   </form>
 
   <p class="mt-4 text-center text-gray-500">
     ¿Ya tienes cuenta?
-    <span (click)="switchToLogin()" class="text-pastelPink font-semibold hover:text-pastel-purple cursor-pointer">
+    <span
+      (click)="switchToLogin()"
+      class="text-pastelPink font-semibold hover:text-pastel-purple cursor-pointer"
+    >
       Iniciar sesión
     </span>
   </p>

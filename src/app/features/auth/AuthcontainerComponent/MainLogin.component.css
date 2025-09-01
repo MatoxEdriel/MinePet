@@ -1,0 +1,8 @@
+@keyframes gatoMover {
+  0%, 100% { transform: translateX(-50%) }
+  50% { transform: translateX(-60%) }
+}
+
+.animate-gato-mover {
+  animation: gatoMover 1s ease-in-out infinite;
+}

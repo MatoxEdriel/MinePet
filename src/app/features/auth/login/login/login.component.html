@@ -1,8 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="login()">
-
-  <mat-form-field appearance="fill"
-    class="w-full mb-4 rounded-lg shadow-sm transition-all duration-300
-                   focus-within:scale-105 focus-within:border-darkMauve focus-within:shadow-[0_0_10px_rgba(59,130,246,0.5)]" floatLabel="always">
+  <mat-form-field
+    appearance="fill"
+    class="w-full mb-4 rounded-lg shadow-sm transition-all duration-300 focus-within:scale-105 focus-within:border-darkMauve focus-within:shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+    floatLabel="always"
+  >
     <mat-icon matPrefix class="text-pastel-pink">person</mat-icon>
     <mat-label>Email</mat-label>
     <input matInput type="email" formControlName="email" class="focus:outline-none" />
@@ -11,15 +12,22 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill"
-    class="w-full mb-4 rounded-lg shadow-sm transition-all duration-300 
-                   focus-within:scale-105 focus-within:border-blue-500 focus-within:shadow-[0_0_10px_rgba(59,130,246,0.5)]" floatLabel="always">
+  <mat-form-field
+    appearance="fill"
+    class="w-full mb-4 rounded-lg shadow-sm transition-all duration-300 focus-within:scale-105 focus-within:border-blue-500 focus-within:shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+    floatLabel="always"
+  >
     <mat-icon matPrefix class="text-pastel-pink">lock</mat-icon>
-    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Contraseña"
-      class="focus:outline-none" />
+    <input
+      matInput
+      [type]="hidePassword ? 'password' : 'text'"
+      formControlName="password"
+      placeholder="Contraseña"
+      class="focus:outline-none"
+    />
     <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
       <mat-icon class="text-pastel-pink">
-        {{hidePassword ? 'visibility_off' : 'visibility'}}
+        {{ hidePassword ? 'visibility_off' : 'visibility' }}
       </mat-icon>
     </button>
     <mat-error *ngIf="form.get('password')?.touched && form.get('password')?.dirty">
@@ -27,16 +35,16 @@
     </mat-error>
   </mat-form-field>
 
-
-
-
   <button mat-raised-button color="primary " class="w-full" [disabled]="form.invalid">
     Acceder
   </button>
 
   <p class="mt-4 text-center text-gray-500">
     ¿No tienes cuenta?
-    <span (click)="switchToRegister()" class="text-pastelPink font-semibold hover:text-pastel-purple cursor-pointer">
+    <span
+      (click)="switchToRegister()"
+      class="text-pastelPink font-semibold hover:text-pastel-purple cursor-pointer"
+    >
       Crea una
     </span>
   </p>
