@@ -1,5 +1,5 @@
 <div class="bg-white w-[650px] rounded-[55px] shadow-lg">
-  <form [formGroup]="registerForm" (ngSubmit)="register()" class="flex flex-col gap-3 w-full">
+  <form [formGroup]="formUser" (ngSubmit)="register()" class="flex flex-col gap-3 w-full">
     <div class="flex gap-4">
       <mat-form-field appearance="fill" class="flex-1">
         <mat-icon matPrefix class="text-pastel-pink">person</mat-icon>
@@ -60,7 +60,11 @@
       <input matInput formControlName="phone" placeholder="Teléfono" />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" class="w-full" [disabled]="registerForm.invalid">
+    <button 
+    type="submit"
+    
+
+    mat-raised-button color="primary" class="w-full" [disabled]="formUser.invalid">
       Crear Cuenta
     </button>
   </form>

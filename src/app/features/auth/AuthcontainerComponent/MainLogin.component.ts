@@ -28,7 +28,8 @@ import { RegisterComponent } from "../register/register/register.component";
     MatCheckboxModule,
     MatSnackBarModule,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    MatInputModule
   ],
   templateUrl: './MainLogin.component.html',
   styleUrls: ['./MainLogin.component.css']
