@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private readonly _http: HttpClient) {}
 
   registerUser(user: IUser): Observable<IResponse<IUser>> {
-    return this._http.post<IResponse<IUser>>(`${this.url}/auth/register`, user).pipe(
+    return this._http.post<IResponse<IUser>>(`${this.url}/user/register`, user).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => error);
       })
