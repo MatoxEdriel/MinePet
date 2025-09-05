@@ -8,6 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/Auth.service';
+import { ILoginRequest, ILoginResponse } from '../../../../interfaces/IUser.interface';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +21,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    
+
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
@@ -36,7 +40,10 @@ export class LoginComponent implements OnInit {
 
   hidePassword: boolean = true;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private readonly router: Router,
+    private readonly _authService: AuthService,
+    private fb: FormBuilder) {
     this.form = this.fb.group({
 
       email: ['', [Validators.required, Validators.email]],
@@ -44,20 +51,40 @@ export class LoginComponent implements OnInit {
     })
   }
 
-
   login() {
+    if (this.form.valid) {
+      const credentials = this.form.value;
 
-    if(this.form.valid){
-      console.log(this.form.value)
+      this._authService.login(credentials).subscribe({
+        next: (response) => {
+          console.log("funciona")
+          localStorage.setItem('auth_token', response.data.token)
+          this.router.navigate(['/dashboard'])
+        },
+        error: (err) => {
+          console.log("gabriel arregla esto")
 
-    }
-    else{
+
+        }
+
+      })
+
+
+    } else {
       this.form.markAllAsTouched();
+
+
     }
+
+
+
+
 
   }
-//aviso a padre
-  switchToRegister(){
+
+
+
+  switchToRegister() {
     this.switchForm.emit();
   }
 

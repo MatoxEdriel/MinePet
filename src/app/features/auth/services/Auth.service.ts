@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IResponse, IUser } from '../../../interfaces/IUser.interface';
+import { ILoginRequest, ILoginResponse, IResponse, IUser } from '../../../interfaces/IUser.interface';
 import { environment } from '../../../../environments/environments';
 import { catchError, Observable, throwError } from 'rxjs';
 
@@ -19,6 +19,29 @@ export class AuthService {
       })
     );
   }
+
+  login(credentials: ILoginRequest):Observable<IResponse<ILoginResponse>>{
+    return this._http
+      .post<IResponse<ILoginResponse>>(`${this.url}/auth/login`, credentials)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        return throwError(() => error);
+      }))
+  }
+
+
+  //  private handleError(error: HttpErrorResponse) {
+  //   let errorMessage = 'Ha ocurrido un error inesperado';
+
+  //   if (error.error instanceof ErrorEvent) {
+  //     // Error del cliente
+  //     errorMessage = `Error: ${error.error.message}`;
+  //   } else {
+  //     // Error del servidor
+  //     errorMessage = error.error?.message || `Código: ${error.status}`;
+  //   }
+
+  //   return throwError(() => new Error(errorMessage));
+  // }
 
 
 
