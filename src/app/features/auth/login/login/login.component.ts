@@ -12,6 +12,8 @@ import { AuthService } from '../../services/Auth.service';
 import { ILoginRequest, ILoginResponse } from '../../../../interfaces/IUser.interface';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { SHARED_COMPONENTS } from '../../../../shared/shared-components';
+import { HoverColorDirectiveDirective } from "../../../../shared/directive/HoverColorDirective.directive";
 
 
 @Component({
@@ -21,15 +23,16 @@ import { Router } from '@angular/router';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-
+    ...SHARED_COMPONENTS,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
-    MatSnackBarModule
-  ],
+    MatSnackBarModule,
+    
+],
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
@@ -59,16 +62,13 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           console.log("funciona")
           localStorage.setItem('auth_token', response.data.token)
+          console.log(response.message)
           this.router.navigate(['/dashboard'])
         },
         error: (err) => {
           console.log("gabriel arregla esto")
-
-
         }
-
       })
-
 
     } else {
       this.form.markAllAsTouched();
