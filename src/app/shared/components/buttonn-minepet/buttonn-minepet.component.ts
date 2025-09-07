@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HoverColorDirectiveDirective } from '../../directive/HoverColorDirective.directive';
+import { ClickScaleDirective } from '../../directive/HoverColorDirective.directive';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-buttonn-minepet',
   templateUrl: './buttonn-minepet.component.html',
-  imports: [HoverColorDirectiveDirective,
+  imports: [ClickScaleDirective,
     CommonModule
   ],
   standalone: true,
@@ -17,7 +17,7 @@ export class ButtonnMinepetComponent implements OnInit {
   @Input() colorSaturade: string = '500';
   @Input() borderColor: string = 'blue';
   @Input() colorText: string = 'white';
-
+  @Input() borderRounded: string = 'rounded-md';
   
 
   variantClasses: { [key: string]: string } = {

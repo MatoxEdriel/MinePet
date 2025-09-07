@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +10,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginComponent } from "../login/login/login.component";
 import { RegisterComponent } from "../register/register/register.component";
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { ToastService } from '../../../shared/services/toast.service';
 
 
 
@@ -29,19 +31,25 @@ import { RegisterComponent } from "../register/register/register.component";
     MatSnackBarModule,
     LoginComponent,
     RegisterComponent,
-    MatInputModule
+    MatInputModule,
+    ToastComponent
   ],
   templateUrl: './MainLogin.component.html',
   styleUrls: ['./MainLogin.component.css']
 })
 export class MainLoginComponent implements OnInit {
 
+  @ViewChild('toast') toast!: ToastComponent;
+
+
   form!: FormGroup;
   showRegister: boolean = false;
 
   hidePassword: boolean = true;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+   private readonly _toast: ToastService,
+    private fb: FormBuilder) {
     this.form = this.fb.group({
 
       email: ['', [Validators.required, Validators.email]],
@@ -66,5 +74,8 @@ export class MainLoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngAfterViewInit() {
+  this._toast.register(this.toast);
+}
 
 }

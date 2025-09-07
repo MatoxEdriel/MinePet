@@ -1,27 +1,25 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[appHoverColorDirective]'
+  selector: '[appClickScale]'
 })
-export class HoverColorDirectiveDirective {
-@Input('appHoverColorDirective') hoverColor: string = 'blue';
+export class ClickScaleDirective {
+  @Input() scale: number = 1.05; 
+  @Input() duration: number = 150; 
 
-@Input() hoverShade: number = 500;
+  constructor(private el: ElementRef, private renderer: Renderer2) {
+    this.renderer.setStyle(this.el.nativeElement, 'transition', `transform ${this.duration}ms`);
+  }
 
-  constructor(private el: ElementRef,
-    private renderer: Renderer2
-  ) { }
+  @HostListener('mousedown') onMouseDown() {
+    this.renderer.setStyle(this.el.nativeElement, 'transform', `scale(${this.scale})`);
+  }
 
-    @HostListener('mouseenter') onMouseEnter() {
-    this.renderer.addClass(this.el.nativeElement, `hover:bg-${this.hoverColor}-${this.hoverShade}`);
+  @HostListener('mouseup') onMouseUp() {
+    this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1)');
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    this.renderer.removeClass(this.el.nativeElement, `hover:bg-${this.hoverColor}-${this.hoverShade}`);
+    this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1)');
   }
-
-
-
-
-
 }

@@ -6,7 +6,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      //Paletas de colores de MinePet
       colors: {
         pastelWhite: '#FFE9E5',
         pastelPink: '#FFB4B1',
@@ -16,5 +15,19 @@ module.exports = {
       }
     }
   },
+
+  safelist: [
+    {
+      pattern: /bg-(sky|blue|green|red|pastelPink|pastelWhite|darkMauve|pastelPeach|softRed)-[0-9]{3}/,
+    },
+    {
+      pattern: /text-(sky|blue|green|red|white|pastelPink|pastelWhite|darkMauve|pastelPeach|softRed)-[0-9]{3}/,
+    },
+    {
+      pattern: /border-(sky|blue|green|red|pastelPink|pastelWhite|darkMauve|pastelPeach|softRed)-[0-9]{3}/,
+    },
+  ],
+
+
   plugins: [],
 }

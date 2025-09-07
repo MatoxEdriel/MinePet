@@ -1,36 +1,50 @@
 <form [formGroup]="form" (ngSubmit)="login()">
 
-  <app-field-minepet
-    [control]="emailControl"
-    [icon]="'person'"
-    [placeholder]="'Email'"
-    [type]="'email'"
-    [errorMessage]="
-      emailControl.invalid && emailControl.dirty ? 'Email inválido' : ''
-    "
-  ></app-field-minepet>
 
-  <app-field-minepet
-    [control]="passwordControl"
-    [icon]="'lock'"
-    [placeholder]="'Contraseña'"
-    [type]="hidePassword ? 'password' : 'text'"
-    [errorMessage]="
-      form.get('password')?.invalid && form.get('password')?.dirty ? 'Contraseña requerida' : ''
-    "
+  <div class="flex flex-col space-y-6">
+
+    <app-field-minepet
+      [control]="emailControl"
+      [icon]="'person'"
+      [placeholder]="'Email'"
+      [variant]="'underline'"
+    
+    ></app-field-minepet>
+    
+      <app-field-minepet
+        [control]="passwordControl"
+        [icon]="'lock'"
+        [placeholder]="'Contraseña'"
+        [type]="hidePassword ? 'password' : 'text'"
+        [variant]="'underline'"
+        [errorMessage]="
+          form.get('password')?.invalid && form.get('password')?.dirty ? 'Contraseña requerida' : ''
+        "
+      >
+        <button
+          type="button"
+          class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+          (click)="hidePassword = !hidePassword"
+        >
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </app-field-minepet>
+
+  </div>
+
+
+  
+  <div class="w-full py-4">
+  <app-buttonn-minepet [colorBg]="'pastelWhite'" [colorText]="'darkMauve'"  [borderColor]="'darkMauve'"
+  [borderRounded]="'rounded-2xl'"
+  class="w-full"
   >
-    <button
-      type="button"
-      class="absolute right-2 top-1/2 transform -translate-y-1/2"
-      (click)="hidePassword = !hidePassword"
-    >
-      <i class="material-icons">{{ hidePassword ? 'visibility_off' : 'visibility' }}</i>
-    </button>
-  </app-field-minepet>
-
-  <app-buttonn-minepet [colorBg]="'green'" [colorText]="'white'" [colorSaturade]="'500'" [borderColor]="'green'">
     Acceder
   </app-buttonn-minepet>
+
+  </div>
+
+
 
   <p class="mt-4 text-center text-gray-500">
     ¿No tienes cuenta?
@@ -41,4 +55,6 @@
       Crea una
     </span>
   </p>
+
+
 </form>
