@@ -12,6 +12,15 @@ export class AuthService {
 
   constructor(private readonly _http: HttpClient) {}
 
+
+
+  isLoggedIn(): boolean{
+
+    const token = localStorage.getItem('auth_token')
+    return !!token
+  }
+
+
   registerUser(user: IUser): Observable<IResponse<IUser>> {
     return this._http.post<IResponse<IUser>>(`${this.url}/user/register`, user).pipe(
       catchError((error: HttpErrorResponse) => {

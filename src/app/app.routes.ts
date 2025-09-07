@@ -3,6 +3,7 @@ import { LayoutComponent } from './pages/layout/layout.component';
 import { ConsultationsComponent } from './pages/layout/Dashboard/pages/Consultations/Consultations.component';
 import { PrescriptionsComponent } from './pages/layout/Dashboard/pages/Prescriptions/Prescriptions.component';
 import { HistoryComponent } from './pages/layout/Dashboard/pages/History/History.component';
+import { authGuardGuard } from './guards/auth-guard-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -30,12 +31,13 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: LayoutComponent,
+    canActivateChild: [authGuardGuard],
     children: [
       { path: '', redirectTo: 'consultas', pathMatch: 'full' },
       { path: 'consultas', component: ConsultationsComponent },
       { path: 'recetas', component: PrescriptionsComponent },
       { path: 'historial', component:HistoryComponent},
-    ],
+    ]
   },
 
   { path: '**', redirectTo: 'auth/login' },

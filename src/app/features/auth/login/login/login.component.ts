@@ -6,14 +6,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/Auth.service';
-import { ILoginRequest, ILoginResponse } from '../../../../interfaces/IUser.interface';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SHARED_COMPONENTS } from '../../../../shared/shared-components';
-import { HoverColorDirectiveDirective } from "../../../../shared/directive/HoverColorDirective.directive";
+import { ILoginResponse, IResponse } from '../../../../interfaces/IUser.interface';
 
 
 @Component({
@@ -46,6 +44,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly _authService: AuthService,
+    private readonly route: ActivatedRoute,
+    private readonly _snackBar: MatSnackBar,
     private fb: FormBuilder) {
     this.form = this.fb.group({
 
@@ -59,15 +59,23 @@ export class LoginComponent implements OnInit {
       const credentials = this.form.value;
 
       this._authService.login(credentials).subscribe({
-        next: (response) => {
-          console.log("funciona")
+        next: (response: IResponse<ILoginResponse>) => {
           localStorage.setItem('auth_token', response.data.token)
-          console.log(response.message)
-          this.router.navigate(['/dashboard'])
-        },
-        error: (err) => {
-          console.log("gabriel arregla esto")
-        }
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+          this.router.navigateByUrl(returnUrl)
+
+      },
+       error: (err) => {
+      let message = 'Ocurrió un error. Intenta nuevamente.';
+      
+      if (err.error?.error) {
+        message = err.error.error; 
+      } else if (err.error?.message) {
+        message = err.error.message;
+      }
+
+      this._snackBar.open(message, 'Cerrar', { duration: 4000, panelClass: ['snack-error'] });
+    }
       })
 
     } else {
