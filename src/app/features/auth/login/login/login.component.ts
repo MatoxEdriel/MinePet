@@ -1,102 +1,67 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/Auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SHARED_COMPONENTS } from '../../../../shared/shared-components';
+import { FieldMinepetComponent } from '../../../../shared/components/field-minepet/field-minepet.component';
+import { ButtonnMinepetComponent } from '../../../../shared/components/buttonn-minepet/buttonn-minepet.component';
 import { ILoginResponse, IResponse } from '../../../../interfaces/IUser.interface';
-
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ...SHARED_COMPONENTS,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCheckboxModule,
-    MatSnackBarModule,
-    
-],
-  styleUrls: ['./login.component.css']
+  imports: [CommonModule, ReactiveFormsModule, FieldMinepetComponent, ButtonnMinepetComponent],
 })
 export class LoginComponent implements OnInit {
-
   @Output() switchForm = new EventEmitter<void>();
 
   form!: FormGroup;
-
-  hidePassword: boolean = true;
+  emailControl!: FormControl;
+  passwordControl!: FormControl;
+  hidePassword = true;
 
   constructor(
-    private readonly router: Router,
-    private readonly _authService: AuthService,
-    private readonly route: ActivatedRoute,
-    private readonly _snackBar: MatSnackBar,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private _authService: AuthService,
+    private _snackBar: MatSnackBar
+  ) {
     this.form = this.fb.group({
-
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
-    })
+    });
+  }
+
+  ngOnInit() {
+    this.emailControl = this.form.get('email') as FormControl;
+      this.passwordControl = this.form.get('password') as FormControl; 
+
   }
 
   login() {
-    if (this.form.valid) {
-      const credentials = this.form.value;
-
-      this._authService.login(credentials).subscribe({
-        next: (response: IResponse<ILoginResponse>) => {
-          localStorage.setItem('auth_token', response.data.token)
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-          this.router.navigateByUrl(returnUrl)
-
-      },
-       error: (err) => {
-      let message = 'Ocurrió un error. Intenta nuevamente.';
-      
-      if (err.error?.error) {
-        message = err.error.error; 
-      } else if (err.error?.message) {
-        message = err.error.message;
-      }
-
-      this._snackBar.open(message, 'Cerrar', { duration: 4000, panelClass: ['snack-error'] });
-    }
-      })
-
-    } else {
+    if (!this.form.valid) {
       this.form.markAllAsTouched();
-
-
+      return;
     }
 
-
-
-
-
+    const credentials = this.form.value;
+    this._authService.login(credentials).subscribe({
+      next: (response: IResponse<ILoginResponse>) => {
+        localStorage.setItem('auth_token', response.data.token);
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+        this.router.navigateByUrl(returnUrl);
+      },
+      error: (err) => {
+        let message = err.error?.error || err.error?.message || 'Ocurrió un error. Intenta nuevamente.';
+        this._snackBar.open(message, 'Cerrar', { duration: 4000, panelClass: ['snack-error'] });
+      }
+    });
   }
-
-
 
   switchToRegister() {
     this.switchForm.emit();
   }
-
-  ngOnInit() {
-  }
-
 }
