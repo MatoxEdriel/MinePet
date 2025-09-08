@@ -1,15 +1,24 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LayoutComponent } from "./pages/layout/layout.component";
-import { ToastComponent } from './shared/components/toast/toast.component';
+
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, LoadingComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
   
   protected readonly title = signal('MinePet');
+
+
+    constructor() {}
+
+
+     ngOnInit(): void {
+ 
+  }
+
 }

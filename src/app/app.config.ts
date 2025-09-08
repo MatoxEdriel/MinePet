@@ -10,7 +10,8 @@ import player from 'lottie-web';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { loadingInterceptorInterceptor } from './shared/interceptors/loading-interceptor-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,6 +23,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideClientHydration(withEventReplay()),
 
-     provideHttpClient(withFetch())
+     provideHttpClient(withFetch(), withInterceptors([loadingInterceptorInterceptor]))
   ],
 };

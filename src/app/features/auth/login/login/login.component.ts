@@ -11,6 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { ToastComponent } from '../../../../shared/components/toast/toast.component';
 import { SHARED_COMPONENTS } from '../../../../shared/shared-components';
+import { LoadingService } from '../../../../shared/services/loading.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +35,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private _authService: AuthService,
     private _snackBar: MatSnackBar,
-    private _toast: ToastService
+    private _toast: ToastService,
+    private readonly _loading : LoadingService
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -57,8 +60,12 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    this._loading.show()
+
     const credentials = this.form.value;
-    this._authService.login(credentials).subscribe({
+    this._authService.login(credentials).pipe(
+      finalize(()=> this._loading.hide())
+    ).subscribe({
       next: (response: IResponse<ILoginResponse>) => {
         localStorage.setItem('auth_token', response.data.token);
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
