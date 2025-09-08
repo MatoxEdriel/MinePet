@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
   AbstractControl,
+  FormControl,
 } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/Auth.service';
 import { IFeeback, IUser } from '../../../../interfaces/IUser.interface';
+import { SHARED_COMPONENTS } from '../../../../shared/shared-components';
 
 @Component({
   selector: 'app-register',
@@ -26,6 +28,7 @@ import { IFeeback, IUser } from '../../../../interfaces/IUser.interface';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    ...SHARED_COMPONENTS
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
@@ -36,6 +39,13 @@ export class RegisterComponent implements OnInit {
   formUser!: FormGroup;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
+
+  nameControl!: FormControl;
+  lastNameControl!: FormControl;
+  emailControl!: FormControl;
+  passwordControl!: FormControl;
+  confirmPasswordControl!: FormControl;
+  phoneControl!: FormControl;
 
   feedback : IFeeback = {
     success: '',
@@ -56,9 +66,15 @@ export class RegisterComponent implements OnInit {
       },
       { validators: this.passwordMatchValidator }
     );
+
+        this.nameControl = this.formUser.get('name') as FormControl;
+    this.lastNameControl = this.formUser.get('lastName') as FormControl;
+    this.emailControl = this.formUser.get('email') as FormControl;
+    this.passwordControl = this.formUser.get('password') as FormControl;
+    this.confirmPasswordControl = this.formUser.get('confirmPassword') as FormControl;
+    this.phoneControl = this.formUser.get('phone') as FormControl;
   }
 
-  // Validación para que las contraseñas coincidan
   passwordMatchValidator(control: AbstractControl) {
     const password = control.get('password')?.value;
     const confirm = control.get('confirmPassword')?.value;

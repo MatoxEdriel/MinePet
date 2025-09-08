@@ -8,15 +8,15 @@ import { FieldMinepetComponent } from '../../../../shared/components/field-minep
 import { ButtonnMinepetComponent } from '../../../../shared/components/buttonn-minepet/buttonn-minepet.component';
 import { ILoginResponse, IResponse } from '../../../../interfaces/IUser.interface';
 import { MatIconModule } from '@angular/material/icon';
-import { ClickScaleDirective } from "../../../../shared/directive/HoverColorDirective.directive";
 import { ToastService } from '../../../../shared/services/toast.service';
 import { ToastComponent } from '../../../../shared/components/toast/toast.component';
+import { SHARED_COMPONENTS } from '../../../../shared/shared-components';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FieldMinepetComponent, ButtonnMinepetComponent, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule,...SHARED_COMPONENTS, MatIconModule],
 })
 export class LoginComponent implements OnInit {
   @Output() switchForm = new EventEmitter<void>();

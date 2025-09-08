@@ -1,70 +1,91 @@
-<div class="flex justify-center items-center min-h-screen bg-pastelWhite p-4">
-  <div class="bg-white w-full max-w-md rounded-[35px] shadow-lg p-6">
+<div class=" bg-white rounded-[35px] shadow-lg p-6 mx-auto">
     <form [formGroup]="formUser" (ngSubmit)="register()" class="flex flex-col gap-4 w-full">
-      
-      <div class="flex gap-4">
-        <mat-form-field appearance="fill" class="flex-1">
-          <mat-icon matPrefix class="text-pastel-pink">person</mat-icon>
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="name" placeholder="Nombre" />
-        </mat-form-field>
 
-        <mat-form-field appearance="fill" class="flex-1">
-          <mat-icon matPrefix class="text-pastel-pink">badge</mat-icon>
-          <mat-label>Apellido</mat-label>
-          <input matInput formControlName="lastName" placeholder="Apellido" />
-        </mat-form-field>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <app-field-minepet
+          [control]="nameControl"
+          [icon]="'person'"
+          [placeholder]="'Nombre'"
+          [variant]="'underline'"
+          [errorMessage]="formUser.get('name')?.invalid && formUser.get('name')?.touched ? 'Nombre es requerido' : ''"
+          class="flex-1"
+        ></app-field-minepet>
+
+        <app-field-minepet
+          [control]="lastNameControl"
+          [icon]="'badge'"
+          [placeholder]="'Apellido'"
+          [variant]="'underline'"
+          [errorMessage]="formUser.get('lastName')?.invalid && formUser.get('lastName')?.touched ? 'Apellido es requerido' : ''"
+          class="flex-1"
+        ></app-field-minepet>
       </div>
 
-      <mat-form-field appearance="fill">
-        <mat-icon matPrefix class="text-pastel-pink">email</mat-icon>
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" placeholder="Email" />
-      </mat-form-field>
+      <app-field-minepet
+        [control]="emailControl"
+        [icon]="'email'"
+        [placeholder]="'Email'"
+        [variant]="'underline'"
+        [errorMessage]="formUser.get('email')?.invalid && formUser.get('email')?.touched ? 'Email inválido o requerido' : ''"
+      ></app-field-minepet>
 
-      <div class="flex gap-4">
-        <mat-form-field appearance="fill" class="flex-1">
-          <mat-icon matPrefix class="text-pastel-pink">lock</mat-icon>
-          <input
-            matInput
-            [type]="hidePassword ? 'password' : 'text'"
-            formControlName="password"
-            placeholder="Contraseña"
-          />
-          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <app-field-minepet
+          [control]="passwordControl"
+          [icon]="'lock'"
+          [placeholder]="'Contraseña'"
+          [type]="hidePassword ? 'password' : 'text'"
+          [variant]="'underline'"
+          [errorMessage]="formUser.get('password')?.invalid && formUser.get('password')?.touched ? 'Contraseña es requerida' : ''"
+          class="flex-1"
+        >
+          <button
+            type="button"
+            class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+            (click)="hidePassword = !hidePassword"
+          >
             <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
-        </mat-form-field>
+        </app-field-minepet>
 
-        <mat-form-field appearance="fill" class="flex-1">
-          <mat-icon matPrefix class="text-pastel-pink">lock</mat-icon>
-          <input
-            matInput
-            [type]="hideConfirmPassword ? 'password' : 'text'"
-            formControlName="confirmPassword"
-            placeholder="Confirmar Contraseña"
-          />
-          <button mat-icon-button matSuffix type="button" (click)="hideConfirmPassword = !hideConfirmPassword">
+        <app-field-minepet
+          [control]="confirmPasswordControl"
+          [icon]="'lock'"
+          [placeholder]="'Confirmar Contraseña'"
+          [type]="hideConfirmPassword ? 'password' : 'text'"
+          [variant]="'underline'"
+          [errorMessage]="formUser.get('confirmPassword')?.hasError('mismatch') && formUser.get('confirmPassword')?.touched ? 'Las contraseñas no coinciden' : (formUser.get('confirmPassword')?.touched && formUser.get('confirmPassword')?.invalid ? 'Confirmar contraseña es requerida' : '')"
+          class="flex-1"
+        >
+          <button
+            type="button"
+            class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+            (click)="hideConfirmPassword = !hideConfirmPassword"
+          >
             <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
-        </mat-form-field>
+        </app-field-minepet>
       </div>
 
-      <mat-form-field appearance="fill">
-        <mat-icon matPrefix class="text-pastel-pink">phone</mat-icon>
-        <mat-label>Teléfono (opcional)</mat-label>
-        <input matInput formControlName="phone" placeholder="Teléfono" />
-      </mat-form-field>
+      <app-field-minepet
+        [control]="phoneControl"
+        [icon]="'phone'"
+        [placeholder]="'Teléfono (opcional)'"
+        [variant]="'underline'"
+      ></app-field-minepet>
 
-      <button
-        type="submit"
-        mat-raised-button
-        color="primary"
+      <app-buttonn-minepet
+        [colorBg]="'pastelWhite'"
+        [colorText]="'darkMauve'"
+        [borderRounded]="'rounded-2xl'"
+        borderColor="'darkMauve'"
         class="w-full"
-        [disabled]="formUser.invalid"
       >
         Crear Cuenta
-      </button>
+      </app-buttonn-minepet>
+
+
+  
     </form>
 
     <p class="mt-4 text-center text-gray-500">
@@ -77,4 +98,4 @@
       </span>
     </p>
   </div>
-</div>
+
