@@ -1,0 +1,32 @@
+<div class="flex gap-4">
+
+  <div class="w-48 p-2 border rounded bg-gray-50">
+    <h3 class="font-bold mb-2">Columnas</h3>
+    <div *ngFor="let col of dataColumns">
+      <label class="flex items-center gap-2">
+        <input type="checkbox" [checked]="col.visible !== false" (change)="toggleColumn(col)">
+        {{ col.label }}
+      </label>
+    </div>
+  </div>
+
+  <div class="flex-1 overflow-auto">
+    
+    <input *ngIf="options.search" type="text" [(ngModel)]="searchText" placeholder="Buscar..."
+           class="mb-2 p-1 border rounded w-full">
+
+    <table class="w-full border-collapse border">
+      <thead>
+        <tr class="bg-gray-100">
+          <th *ngFor="let col of visibleColumns" class="border p-2 text-left">{{ col.label }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of filteredData()">
+          <td *ngFor="let col of visibleColumns" class="border p-2">{{ row[col.key] }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

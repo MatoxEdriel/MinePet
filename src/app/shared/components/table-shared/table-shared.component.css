@@ -1,0 +1,10 @@
+/* table-shared.component.css */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #d1d5db; /* gris */
+  padding: 0.5rem;
+}
