@@ -33,13 +33,28 @@
           </ng-lottie>
         </button>
 
-        <button mat-icon-button class="hover:bg-blue-500 rounded-full">
-          <img
-            class="w-9 h-9 rounded-full border-2 border-white"
-            src="https://i.pravatar.cc/40"
-            alt="Usuario"
-          />
-        </button>
+       <button
+  mat-icon-button
+  [matMenuTriggerFor]="userMenu"
+  class="hover:bg-blue-500 rounded-full"
+>
+  <img
+    class="w-9 h-9 rounded-full border-2 border-white"
+    src="https://i.pravatar.cc/40"
+    alt="Usuario"
+  />
+</button>
+
+<mat-menu #userMenu="matMenu">
+  <button mat-menu-item (click)="goToProfile()">
+    <mat-icon>person</mat-icon>
+    <span>Perfil</span>
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Salir</span>
+  </button>
+</mat-menu>
       </div>
 
       <div class="md:hidden ml-auto">

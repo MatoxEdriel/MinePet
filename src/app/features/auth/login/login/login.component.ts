@@ -13,6 +13,7 @@ import { ToastComponent } from '../../../../shared/components/toast/toast.compon
 import { SHARED_COMPONENTS } from '../../../../shared/shared-components';
 import { LoadingService } from '../../../../shared/services/loading.service';
 import { finalize } from 'rxjs';
+import { StorageService } from '../../../../shared/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -34,9 +35,9 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _authService: AuthService,
-    private _snackBar: MatSnackBar,
     private _toast: ToastService,
-    private readonly _loading : LoadingService
+    private readonly _loading : LoadingService,
+    private readonly _storage: StorageService
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -55,32 +56,29 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (!this.form.valid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    this._loading.show()
-
-    const credentials = this.form.value;
-    this._authService.login(credentials).pipe(
-      finalize(()=> this._loading.hide())
-    ).subscribe({
-      next: (response: IResponse<ILoginResponse>) => {
-        localStorage.setItem('auth_token', response.data.token);
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-        this.router.navigateByUrl(returnUrl);
-        this._toast.show('Inicio de sesion exitoso', 'success')
-
-      },
-      error: (err) => {
-
-        const apiError = err.error;
-        let message = apiError?.message || 'Ocurrió un error. Intenta nuevamente.';
-        this._toast.show(message, 'error');
-      }
-    });
+  if (!this.form.valid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  this._loading.show();
+
+  const credentials = this.form.value;
+  this._authService.login(credentials).pipe(
+    finalize(() => this._loading.hide())
+  ).subscribe({
+    next: () => { 
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+      this.router.navigateByUrl(returnUrl);
+      this._toast.show('Inicio de sesión exitoso', 'success');
+    },
+    error: (err) => {
+      const apiError = err.error;
+      let message = apiError?.message || 'Ocurrió un error. Intenta nuevamente.';
+      this._toast.show(message, 'error');
+    }
+  });
+}
 
   switchToRegister() {
     this.switchForm.emit();
