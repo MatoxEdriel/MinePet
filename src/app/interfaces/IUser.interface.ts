@@ -42,3 +42,13 @@ export interface ToastMessage {
   id: number;
   progress: number;
 }
+
+
+export interface IMenuItem{
+
+  label: string;
+  icon: string;
+  route: string;
+
+
+}

@@ -4,6 +4,7 @@ import { ConsultationsComponent } from './pages/layout/Dashboard/pages/Consultat
 import { PrescriptionsComponent } from './pages/layout/Dashboard/pages/Prescriptions/Prescriptions.component';
 import { HistoryComponent } from './pages/layout/Dashboard/pages/History/History.component';
 import { authGuardGuard } from './guards/auth-guard-guard';
+import { UserProfileComponent } from './pages/layout/nav/user-profile/user-profile/user-profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -37,6 +38,7 @@ export const routes: Routes = [
       { path: 'consultas', component: ConsultationsComponent },
       { path: 'recetas', component: PrescriptionsComponent },
       { path: 'historial', component:HistoryComponent},
+      { path: 'perfil' , component: UserProfileComponent}
     ]
   },
 

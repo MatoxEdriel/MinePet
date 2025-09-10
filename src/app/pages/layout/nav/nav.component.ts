@@ -27,6 +27,10 @@ export class NavComponent implements OnInit {
     private readonly router: Router
   ) {}
 
+
+
+
+
   ngOnInit() {}
 
   notificationAnimation!: AnimationItem;
@@ -44,9 +48,11 @@ export class NavComponent implements OnInit {
   this._authService.logOut();
   this.router.navigate(['auth/login']);
 }
-//Considerar poner un perfil Uaser profile para la base de dato
+
+
+//Considerar poner un perfil Uaser profile para la base de
 goToProfile() {
-  this.router.navigate(['/profile']); 
+  this.router.navigate(['/dashboard/perfil']); 
 }
   notificationOptions: AnimationOptions = {
     path: 'lottie/notification.json',
