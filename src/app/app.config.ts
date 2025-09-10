@@ -21,7 +21,6 @@ export const appConfig: ApplicationConfig = {
     }),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideClientHydration(withEventReplay()),
 
      provideHttpClient(withFetch(), withInterceptors([loadingInterceptorInterceptor]))
   ],
