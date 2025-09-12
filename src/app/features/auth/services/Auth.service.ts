@@ -50,8 +50,9 @@ export class AuthService {
           if (res.data?.token) {
             this._storage.set(StorageKeys.AUTH_TOKEN, res.data.token);
           }
-          if (res.data?.userId) {
-            this._storage.set(StorageKeys.USER, res.data.userId);
+          if (res.data) {
+            //cambiar aqui corregir por otro serviccio 
+            this._storage.set(StorageKeys.ACCESS_USER, res.data);
           }
         }),
         catchError((error: HttpErrorResponse) => throwError(() => error))

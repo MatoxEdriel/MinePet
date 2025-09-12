@@ -7,19 +7,18 @@
         class="w-24 h-24 rounded-full border"
       />
       <div>
-        <h1 class="text-2xl font-bold">Camila Caballero</h1>
-        <p class="text-gray-500">Administrador</p>
+        <h1 class="text-2xl font-bold">{{user?.name}}</h1>
       </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
         <h2 class="text-sm text-gray-400">Correo</h2>
-        <p class="text-lg font-medium">juanperez@mail.com</p>
+        <p class="text-lg font-medium">{{user?.email}}</p>
       </div>
       <div>
         <h2 class="text-sm text-gray-400">Teléfono</h2>
-        <p class="text-lg font-medium">+593 999 888 777</p>
+        <p class="text-lg font-medium">{{user?.phone}}</p>
       </div>
       <div>
         <h2 class="text-sm text-gray-400">Estado</h2>

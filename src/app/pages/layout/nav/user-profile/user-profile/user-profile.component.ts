@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../../../../../shared/services/storage.service';
+import { IUser } from '../../../../../interfaces/IUser.interface';
+import { StorageKeys } from '../../../../../interfaces/IFeedBack.interface';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+//Corregir porque aqui edbe estar el storage service y el user service 
+  user: IUser | null = null;
+
+  constructor(
+    private readonly _storage : StorageService
+  ) { }
 
   ngOnInit() {
+    this.user = this._storage.get<IUser>(StorageKeys.ACCESS_USER)
+
+    console.log("que tiro xd " +  JSON.stringify(this.user))
   }
+
+
+
 
 }
