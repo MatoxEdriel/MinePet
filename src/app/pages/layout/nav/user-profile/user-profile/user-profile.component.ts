@@ -22,5 +22,7 @@ export class UserProfileComponent implements OnInit {
     console.log("que tiro xd " +  JSON.stringify(this.user))
     console.log(this.user?.email)
     console.log(this.user?.alias)
+      console.log(this.user?.phone)
+
   }
 }

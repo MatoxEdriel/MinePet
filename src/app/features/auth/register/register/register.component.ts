@@ -92,6 +92,7 @@ export class RegisterComponent implements OnInit {
       this._authService.registerUser(user).subscribe({
         next: (res) => {
           console.log(JSON.stringify(user));
+          console.log(user.phone + "Prueba")
           this.feedback.success = res.message || 'Usuario Registrado Satisfactorio ';
           this.formUser.reset();
         },

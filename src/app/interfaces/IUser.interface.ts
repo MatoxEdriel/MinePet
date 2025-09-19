@@ -3,8 +3,8 @@ export interface IUser {
   lastName: string;
   email: string;
   password: string;
-  phone: string;
   alias: string;
+  phone: string;
 }
 
 export interface IResponse<T> {
