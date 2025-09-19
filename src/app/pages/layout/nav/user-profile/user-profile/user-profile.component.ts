@@ -10,7 +10,6 @@ import { StorageKeys } from '../../../../../interfaces/IFeedBack.interface';
 })
 export class UserProfileComponent implements OnInit {
 
-//Corregir porque aqui edbe estar el storage service y el user service 
   user: IUser | null = null;
 
   constructor(
@@ -21,9 +20,7 @@ export class UserProfileComponent implements OnInit {
     this.user = this._storage.get<IUser>(StorageKeys.ACCESS_USER)
 
     console.log("que tiro xd " +  JSON.stringify(this.user))
+    console.log(this.user?.email)
+    console.log(this.user?.alias)
   }
-
-
-
-
 }

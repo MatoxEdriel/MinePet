@@ -3,7 +3,6 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { ILoginRequest, ILoginResponse, IResponse, IUser } from '../../../interfaces/IUser.interface';
 import { environment } from '../../../../environments/environments';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
 import { StorageService } from '../../../shared/services/storage.service';
 import { StorageKeys } from '../../../interfaces/IFeedBack.interface';
 
@@ -16,21 +15,14 @@ export class AuthService {
   constructor(
     private readonly _storage: StorageService,
     private readonly _http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
 
   ) { }
 
 
 
   isLoggedIn(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-
       const token = this._storage.get<string>(StorageKeys.AUTH_TOKEN)
-
-
       return !!token
-    }
-    return false;
   }
 
 
