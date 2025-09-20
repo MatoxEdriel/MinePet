@@ -11,18 +11,29 @@ import { StorageKeys } from '../../../../../interfaces/IFeedBack.interface';
 export class UserProfileComponent implements OnInit {
 
   user: IUser | null = null;
-
+ 
+  avatarInitial : string = '';
+  avatarBgColor : string ='';
   constructor(
     private readonly _storage : StorageService
   ) { }
 
   ngOnInit() {
     this.user = this._storage.get<IUser>(StorageKeys.ACCESS_USER)
+    
+    
+    if(this.user){
+      this.avatarInitial = this.getInitialsFromAlias(this.user?.alias)
+    }
+  }
 
-    console.log("que tiro xd " +  JSON.stringify(this.user))
-    console.log(this.user?.email)
-    console.log(this.user?.alias)
-      console.log(this.user?.phone)
+  private getInitialsFromAlias(alias?: string): string{
+
+    if(!alias) return '?';
+  const parts = alias.trim().split(/\s+/);
+  const initials = parts.map(word => word[0].toUpperCase());
+  return initials.join('');
 
   }
+
 }
